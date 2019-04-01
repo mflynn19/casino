@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,7 +29,7 @@ public class Blackjack {
 			if(chips == 0) {
 				System.out.println("You've run out of chips! You can't continue, even if you'd want to.");
 			}
-		} while(chips != 0 && question("Would you like to keep playing (C), or cash out (X)?", Arrays.asList("C", "X"), in).equals("C"));
+		} while(chips != 0 && question("Would you like to keep playing (continue), or cash out (moolah)?", Arrays.asList("continue", "moolah"), in).equals("continue"));
 	}
 	
 	public static boolean loseYourMoney() {
@@ -40,18 +39,18 @@ public class Blackjack {
 		int[] values = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11};
 		
 		Deck deck = new Deck(suits, ranks, values);
+		Hand dealer = new Hand();
+		Hand user = new Hand();
 		
 		//deal initial cards
-		Hand dealer = new Hand();
 		dealer.add(deck.deal());
 		dealer.add(deck.deal());
-		Hand user = new Hand();
 		user.add(deck.deal());
 		user.add(deck.deal());
 
 		//check in
-		//System.out.println("Your Hand: " + user);
-		//System.out.println("Dealer's Hand: " + dealer.get(0));
+		System.out.println("Your Hand: " + user);
+		System.out.println("Dealer's Hand: " + dealer.get(0));
 		
 		//Player's turn
 		String doing = "";
@@ -61,6 +60,7 @@ public class Blackjack {
 			if (doing.equals("hit")) {
 				user.add(deck.deal());
 				System.out.println("Here's what Lady Luck gave you!" + user);
+				System.out.println("");
 			} 
 		} 	
 		//bust
@@ -102,21 +102,21 @@ public class Blackjack {
 			return false;
 		}
 	}
-	public static String question(String q, List<String> validAnswers, Scanner in) {
-		String r = "";
+	public static String question(String q, List<String> answers, Scanner in) {
+		String response = "";
 		do {
 			System.out.println(q);
-			r = in.nextLine().toLowerCase();
-		} while(validAnswers.indexOf(r) == -1);
-		return r;
+			response = in.nextLine().toLowerCase();
+		} while(answers.indexOf(response) == -1);
+		return response;
 	}
 	
-	public static String question(String q, String regex, Scanner in) {
-		String r = "";
+	public static String question(String q, String format, Scanner in) {
+		String response = "";
 		do {
 			System.out.println(q);
-			r = in.nextLine();
-		} while(!r.matches(regex));
-		return r;
+			response = in.nextLine();
+		} while(!response.matches(format));
+		return response;
 	}
 }

@@ -5,24 +5,23 @@ public class Hand extends ArrayList<Card> implements Comparable<Hand>{
 		
 	}
 	public int score() {
-		int s = 0;
+		int points = 0;
 		boolean hasAce = false;
-		for(Card c : this) {
-			s += c.getPointValue();
-			if(c.getRank() == "ace") {
+		for(Card tarjeta : this) {
+			points += tarjeta.getValue();
+			if(tarjeta.getRank() == "ace") {
 				hasAce = true;
 			}
 		}
-		if (s > 21) {
+		if (points > 21) {
 			if(hasAce) {
-				s -= 10;
+				points -= 10;
 			} else {
-				s = 0;
+				points = 0;
 			}
 		}
-		return s;
+		return points;
 	}
-	
 	public int compareTo(Hand other) {
 		int userScore = this.score();
 		int dealerScore = other.score();

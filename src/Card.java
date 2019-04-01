@@ -4,24 +4,24 @@
  * <code>Card</code> represents a playing card.
  */
 public class Card {
-
+	
 	/**
 	 * String value that holds the suit of the card
 	 */
 	private String suit;
-
+	
 	/**
 	 * String value that holds the rank of the card
 	 */
 	private String rank;
-
+	
 	/**
 	 * int value that holds the point value.
 	 */
-	private int pointValue;
+	private int value;
 
 
-   /**
+	/**
 	 * Creates a new <code>Card</code> instance.
 	 *
 	 * @param cardRank  a <code>String</code> value
@@ -35,10 +35,9 @@ public class Card {
 		//initializes a new Card with the given rank, suit, and point value
 		this.rank = cardRank;
 		this.suit = cardSuit;
-		this.pointValue = cardPointValue;
+		this.value = cardPointValue;
 	}
-
-
+	
 	/**
 	 * Accesses this <code>Card's</code> suit.
 	 * @return this <code>Card's</code> suit.
@@ -59,21 +58,10 @@ public class Card {
 	 * Accesses this <code>Card's</code> point value.
 	 * @return this <code>Card's</code> point value.
 	 */
-	public int getPointValue() {
-		return pointValue;
+	public int getValue() {
+		return value;
 	}
 	
-	/** Compare this card with the argument.
-	 * @param otherCard the other card to compare to this
-	 * @return true if the rank, suit, and point value of this card
-	 *              are equal to those of the argument;
-	 *         false otherwise.
-	 */
-	public boolean matches(Card otherCard) {
-		return otherCard.getSuit().equals(this.getSuit())
-			&& otherCard.getRank().equals(this.getRank())
-			&& otherCard.getPointValue() == this.getPointValue();
-	}
 
 	/**
 	 * Converts the rank, suit, and point value into a string in the format
