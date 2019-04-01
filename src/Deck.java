@@ -1,11 +1,24 @@
 import java.util.List;
-
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class Deck {
+/**
+ * The Deck class represents a shuffled deck of cards.
+ * It provides several operations including
+ *      initialize, shuffle, deal, and check if empty.
+ */
+public class Deck extends ArrayList<Card> {
 
-	
+	/**
+	 * cards contains all the cards in the deck.
+	 */
 	private List<Card> cards;
+
+	/**
+	 * size is the number of not-yet-dealt cards.
+	 * Cards are dealt from the top (highest index) down.
+	 * The next card to be dealt is at size - 1.
+	 */
 	private int size;
 
 
@@ -18,17 +31,14 @@ public class Deck {
 	 * @param values is an array containing all of the card point values.
 	 */
 	public Deck(String[] ranks, String[] suits, int[] values) {
-		cards = new ArrayList<Card>();
 		for (int j = 0; j < ranks.length; j++) {
 			for (String suitString : suits) {
-				cards.add(new Card(ranks[j], suitString, values[j]));
+				this.add(new Card(ranks[j], suitString, values[j]));
 			}
 		}
-		size = cards.size();
-		shuffle();
+		Collections.shuffle(this);
 	}
-
-
+	
 	/**
 	 * Determines if this deck is empty (no undealt cards).
 	 * @return true if this deck is empty, false otherwise.
@@ -67,12 +77,10 @@ public class Deck {
 	 *         previously dealt.
 	 */
 	public Card deal() {
-		if (isEmpty()) {
-			return null;
+		if(this.size() > 0) {
+			return this.remove(0);
 		}
-		size--;
-		Card c = cards.get(size);
-		return c;
+		return null;
 	}
 
 	/**
@@ -81,20 +89,7 @@ public class Deck {
 	 */
 	@Override
 	public String toString() {
-		String rtn = "size = " + size + "\nUndealt cards: \n";
-
-		for (int k = size - 1; k >= 0; k--) {
-			rtn = rtn + cards.get(k);
-			if (k != 0) {
-				rtn = rtn + ", ";
-			}
-			if ((size - k) % 2 == 0) {
-				// Insert carriage returns so entire deck is visible on console.
-				rtn = rtn + "\n";
-			}
-		}
-
-		rtn = rtn + "\nDealt cards: \n";
+		String rtn = "Your hand: \n";
 		for (int k = cards.size() - 1; k >= size; k--) {
 			rtn = rtn + cards.get(k);
 			if (k != size) {
